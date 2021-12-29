@@ -12,7 +12,7 @@ import {
 
 
 
-const googleApiKey = "Your Google Api Key Here"
+const googleApiKey = "AIzaSyAMXu5nDUDL7yUs5RQeU2mIKWi6wnfHb9s"
 
 const mapContainerStyle = {
     height: "60vh",
