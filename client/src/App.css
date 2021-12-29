@@ -1,0 +1,78 @@
+body{
+    background-color: #edf6f9;
+}
+
+
+.headerContainer{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.headerContainer div {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+
+.mapContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-top: 60px;
+} 
+
+
+.loading {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: absolute;
+    border-radius: 10px;
+  }
+
+.refreshBtn{
+    margin:0 4px;
+    padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 10px;
+  padding-right: 10px;
+  font-size: 17px;
+  background-color: #c5535b;
+  color: white;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: all .25s linear
+}
+
+.refreshBtn:hover {
+    background-color: #953036;
+}
+
+.sundaeContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.refreshContainer{
+    text-align: center;
+}
+
+#map {
+    border: 2px solid black;
+    border-radius: 8px;
+}
+
+.unavailableSundaes {
+    font-weight: bold;
+    background-color: red;
+    color: black;
+    width: max-content;
+    padding: 5px;
+    border-radius: 5px;
+}

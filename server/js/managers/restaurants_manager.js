@@ -1,16 +1,9 @@
-const { response } = require("express");
-const path = require("path");
 const fetch = (...args) =>
     import ('node-fetch').then(({ default: fetch }) => fetch(...args));
 
-const { FileSystemManager } = require("./file_system_manager");
-
-const fileSystemManager = new FileSystemManager();
 
 class RestaurantsJsonManager {
-    constructor() {
-        this.JSON_PATH = path.join(__dirname + "../../../data/restaurants.json");
-    }
+    constructor() {}
 
     async getAllMtlRestaurants(){
         const headers = {
@@ -60,22 +53,15 @@ class RestaurantsJsonManager {
         return restaurantsList
     }
 
-    async updateRestaurants() {
+    async getRestaurants() {
         const allMtl = await this.getAllMtlRestaurants();
         const newRestaurants = this.getAllMcdonaldsOpen(allMtl)
-        if(newRestaurants){
-            await fileSystemManager.writeToJsonFile(this.JSON_PATH,JSON.stringify({newRestaurants}))
-        }
+        return newRestaurants;
     }
 
-    async getAllRestaurants() {
-        const fileBuffer = await fileSystemManager.readFile(this.JSON_PATH);
-        const restaurantsContainer = JSON.parse(fileBuffer);
-        return restaurantsContainer["newRestaurants"];
-    }
 
     async getAllMcdonaldsMenus() {
-        const allOpenMcDonalds = await this.getAllRestaurants();
+        const allOpenMcDonalds = await this.getRestaurants();
         const headers = {
             "App-Token": process.env.APP_TOKEN
         }
@@ -85,23 +71,35 @@ class RestaurantsJsonManager {
 
         const mcDonaldsInfo = []
 
+
         for (const menu of (await menuList)){
             const category = menu["menu"]["menuGroups"].slice(2)
             for(const cat of category){
-                const data = this.getMcFlurryUnavailable(cat["menuItems"])
-                if(data.length >= 1 ) menu["unavailable"] = data
-            } 
-            mcDonaldsInfo.push(menu)
+                if(cat["name"] === "Desserts"){
+                    const data = this.getSundaesUnavailable(cat["menuItems"])
+                    if(data.length >= 1 ) menu["unavailable"] = data
+                }
+                
+            }
+            const menuCopy = {
+                name:menu["name"],
+                lat: menu["location"]["latitude"],
+                lng:menu["location"]["longitude"],
+                unavailable: menu["unavailable"]
+
+            }
+            mcDonaldsInfo.push(menuCopy)
         }
         return mcDonaldsInfo;
     }
 
-    getMcFlurryUnavailable(menuitems) {
+    getSundaesUnavailable(menuitems) {
         const unavailableFlurr = []
         for(const item of menuitems) {
             if(!item["available"]){
-                if(item["name"].includes("Flurr") && !item["name"].includes("Egg")){
-                    unavailableFlurr.push(item["name"])
+                if(item["name"].includes("Coupe")){
+                    const newItemName = item["name"].includes("caramel") ? "Hot Caramel Sundae" : "Hot Fudge Sundae"
+                    unavailableFlurr.push(newItemName)
                     }
                 }
             }

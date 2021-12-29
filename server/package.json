@@ -1,15 +1,18 @@
 {
   "name": "mctracker",
   "version": "1.0.0",
-  "description": "Track the McDonalds that have ice cream available ",
+  "description": "Track the McDonalds that have mcFlurrys available ",
   "main": "server.js",
   "scripts": {
     "start": "node server",
-    "server": "nodemon server"
+    "server": "nodemon server",
+    "client": "npm start --prefix ../client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "author": "Nahi Abdelkrim",
   "license": "MIT",
   "dependencies": {
+    "concurrently": "^6.5.1",
     "dotenv": "^10.0.0",
     "express": "^4.17.2",
     "morgan": "^1.10.0",
