@@ -25,10 +25,12 @@ A web application that allows you to track all the sundaes available in Montreal
     cd client/ && npm i 
     ```
     
-    Set the variables in the `config.env` file:
-
+3. Run the `application`
+    
+    Enter this command on the folder "server" of the project.
+    
     ```bash
-    TRAKCER_API_KEY = Your Api Key here. Check out https://tracker.gg/developers for more informations.
+    npm run dev 
     ```
 
 
