@@ -19,7 +19,7 @@ A web application that allows you to track all the sundaes available in Montreal
     Install the required dependencies:
 
     ```bash
-     cd server/ && npm i 
+    cd server/ && npm i 
     ```
      ```bash
     cd client/ && npm i 
